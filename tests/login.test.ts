@@ -1,11 +1,15 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { LoginPage } from '../pages/loginPage';
 
-test('User can log in successfully', async ({ page }) => {
+test('Invalid login shows error', async ({ page }) => {
     const loginPage = new LoginPage(page);
+    await loginPage.goto();
 
-    await loginPage.navigateToLogin();
-    await loginPage.login('testuser', 'sup3rs3cr3t');
+    // Step 1: Attempt login with invalid credentials
+    await loginPage.login('invalid_user', 'wrong_password'); // Replace with invalid test credentials.
 
-    expect(await loginPage.isLoggedIn()).toBeTruthy();
+    // Step 2: Verify error message
+    const errorMessage = page.locator('[data-testid="login-error"]');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toContainText('Invalid username or password');
 });
