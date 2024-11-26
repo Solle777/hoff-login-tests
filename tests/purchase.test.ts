@@ -14,5 +14,5 @@ test('Purchase a product', async ({ page }) => {
     await storePage.completePurchase();
 
     const successMessage = storePage.getSuccessMessage();
-    await expect(successMessage).toContainText('Thank you for your purchase!');
+    await expect(successMessage).toContain('Thank you for your purchase!');
 });
