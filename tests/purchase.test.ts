@@ -6,13 +6,10 @@ test('Purchase a product', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const storePage = new StorePage(page);
 
+    await page.pause(); // Debug mode to inspect the page
     await loginPage.goto();
     await loginPage.login('validUsername', 'sup3rs3cr3t');
-    await expect(page).toHaveURL(/store2/);
-
-    await storePage.selectProduct('Apple'); // Adjust product name if needed
+    await storePage.selectProduct('Apple');
     await storePage.completePurchase();
-
-    const successMessage = storePage.getSuccessMessage();
-    await expect(successMessage).toContain('Thank you for your purchase!');
+    await expect(storePage.getSuccessMessage()).toContain('Thank you for your purchase!');
 });

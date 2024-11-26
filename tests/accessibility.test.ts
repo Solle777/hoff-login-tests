@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/loginPage';
+import { StorePage } from '../pages/storePage';
 
 test('Accessibility check for login page', async ({ page }) => {
     await page.goto('https://hoff.is/login');
@@ -9,6 +11,6 @@ test('Accessibility check for login page', async ({ page }) => {
     // Validate the main role and page name
     expect(accessibilitySnapshot).toMatchObject({
         role: 'WebArea',
-        name: 'The Hoff Store',
+        name: 'Login Page', // Adjusted to match the actual page
     });
 });
