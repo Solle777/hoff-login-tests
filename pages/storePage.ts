@@ -7,15 +7,19 @@ export class StorePage {
         this.page = page;
     }
 
+    async goto() {
+        await this.page.goto('https://hoff.is/store'); // Replace with the actual URL for the store page
+    }
+
     async selectProduct(productName: string) {
-        await this.page.locator(`[data-testid="product-${productName}"]`).click();
+        await this.page.locator('select[name="message"]').selectOption(productName); // Select product from dropdown
     }
 
-    async completePurchase() {
-        await this.page.locator('[data-testid="purchase-button"]').click();
+    async setAmount(amount: string) {
+        await this.page.locator('input[name="amount"]').fill(amount); // Enter the product amount
     }
 
-    async getSuccessMessage() {
-        return this.page.locator('[data-testid="success-message"]');
+    async addToCart() {
+        await this.page.locator('button:has-text("Add to Cart")').click(); // Click "Add to Cart" button
     }
 }

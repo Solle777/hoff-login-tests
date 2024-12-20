@@ -1,13 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { StorePage } from '../pages/storePage';
 
-
-test('Fetch product details via API', async ({ request }) => {
-    const productResponse = await request.get('https://hoff.is/store2/api/v1/price/1');
-    const productDetails = await productResponse.json();
-    console.log('Product details:', productDetails);
-
-    expect(productDetails).toHaveProperty('price');
-    expect(productDetails).toHaveProperty('name');
+test('API test for product details', async ({ request }) => {
+    const response = await request.get('https://hoff.is/store2/api/v1/price/1');
+    expect(response.ok()).toBeTruthy();
+    const data = await response.json();
+    expect(data?.id).toBe(1); // Updated to handle undefined cases
 });
